@@ -1,0 +1,65 @@
+<div id='tableContainer'>
+  <div class="border wrap-table" id="datagrid">
+    <oj-table id="table" aria-label="Tasks Table" accessibility.row-header="name" data="[[dataProvider]]"
+      class="table-container" layout="fixed"
+      columns='[{"headerText": "Name", "sortProperty": "name", "weight": 2, "id": "name"},
+            {"headerText": "Time", "sortProperty": "time", "id": "time"},
+            {"headerText": "Status", "sortProperty": "status", "id": "start"},
+            {"headerText": "Percentage", "sortProperty": "percentage", "id": "percentage", "className": "oj-read-only"}]'>
+
+      <template slot="rowTemplate" data-oj-as="row">
+        <tr>
+          <!-- ko if: row.item.metadata.treeDepth === 0 -->
+          <td>
+            <oj-row-expander context="[[row]]" data-oj-clickthrough="disabled"></oj-row-expander>
+            <span>
+              <oj-bind-text value="[[row.item.data.name]]"></oj-bind-text>
+            </span>
+          </td>
+          <td>
+            <span>
+              <oj-bind-text value="[[row.item.data.time]]"></oj-bind-text>
+            </span>
+          </td>
+          <td>
+            <span>
+              <span :class="[[getClass(row.item.data.status)]]">
+                <oj-bind-text value="[[row.item.data.status]]"></oj-bind-text>
+              </span>
+            </span>
+          </td>
+          <td>
+            <span>
+              <oj-bind-text value="[[row.item.data.percentage]]"></oj-bind-text>
+
+            </span>
+          </td>
+          <!-- /ko -->
+          <td colspan="5">
+            <span>
+              <oj-bind-text value="[[row.item.data.note]]"></oj-bind-text>
+            </span>
+          </td>
+        </tr>
+      </template>
+    </oj-table>
+  </div>
+  <div class="border">
+    <div id="chart-container">
+      <oj-chart id="lineChart" type="line" data="[[dataProviderLineChart]]" animation-on-display="auto"
+        animation-on-data-change="auto" hover-behavior="dim">
+      </oj-chart>
+    </div>
+  </div>
+
+
+  <div class="border">
+    <div id="componentDemoContent" style="width: 1px; min-width: 100%;">
+      <div id="pie-chart-container">
+        <oj-chart id="pieChart" type="pie" data="[[dataProviderPieChart]]" animation-on-display="auto"
+          animation-on-data-change="auto" hover-behavior="dim">
+        </oj-chart>
+      </div>
+    </div>
+  </div>
+</div>
